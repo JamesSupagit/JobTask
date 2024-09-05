@@ -106,15 +106,16 @@ def submit():
     name = request.form.get('name')
     workload = request.form.get('workload')
 
-    # Ensure variables are extracted correctly
-    print(f"Received name: {name}")  # Debugging output
-    print(f"Received workload: {workload}")  # Debugging output
+    # Replace newlines with HTML <br> tags for proper display
+    formatted_workload = workload.replace('\n', '<br>')
 
-    # Store the workload data
-    workload_data.append(f"Name: {name}\nWorkload: {workload}")
+    # Debugging output
+    print(f"Received name: {name}")
+    print(f"Received workload: {workload}")
 
     # Render the HTML template with the data
-    return render_template('response.html', name=name, workload=workload)
+    return render_template('response.html', name=name, workload=formatted_workload)
+
 
 
 
