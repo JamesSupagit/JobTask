@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, render_template
 import requests
 from apscheduler.schedulers.background import BackgroundScheduler
 import pytz
@@ -103,7 +103,6 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    # Extract name and workload from the form data
     name = request.form.get('name')
     workload = request.form.get('workload')
     
@@ -111,75 +110,11 @@ def submit():
     print(f"Received name: {name}")  # Debugging output
     print(f"Received workload: {workload}")  # Debugging output
 
-    # Prepare the response message with proper escaping
-    return_message = f"""
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Workload Submitted</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f9;
-                color: #333;
-                margin: 0;
-                padding: 0;
-            }}
-            .container {{
-                width: 80%;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-                background-color: #fff;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }}
-            h1 {{
-                color: #007BFF;
-                text-align: center;
-            }}
-            p {{
-                font-size: 16px;
-                line-height: 1.6;
-            }}
-            .details {{
-                margin: 20px 0;
-                padding: 10px;
-                background-color: #e9ecef;
-                border-radius: 4px;
-                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            }}
-            .details h2 {{
-                color: #007BFF;
-                margin-top: 0;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>Data Received!</h1>
-            <p>Your workload information has been successfully submitted. Here's the latest entry:</p>
-            <div class="details">
-                <h2>Latest Workload Submission</h2>
-                <p><strong>Name:</strong> {name}</p>
-                <p><strong>Workload:</strong><br>{workload.replace('\\n', '<br>')}</p>
-            </div>
-            <p>We will notify you at 17:30 GMT+7.</p>
-        </div>
-    </body>
-    </html>
-    """
-    
-    # Print formatted message for debugging
-    print(return_message)
-
     # Store the workload data
     workload_data.append(f"Name: {name}\nWorkload: {workload}")
     
-    # Return the styled response
-    return return_message
+    # Return the styled response using the template
+    return render_template('response.html', name=name, workload=workload)
 
 
 
