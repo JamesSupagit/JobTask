@@ -181,7 +181,7 @@ def job():
 # Schedule the job at 17:30 GMT+7 every day
 def schedule_job():
     tz = pytz.timezone('Asia/Bangkok')
-    scheduler.add_job(job, 'cron', hour=12, minute=5, timezone=tz)
+    scheduler.add_job(job, 'cron', hour=12, minute=45, timezone=tz)
 
 # Start the scheduler
 scheduler.start()
