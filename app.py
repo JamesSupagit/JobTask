@@ -106,15 +106,12 @@ def submit():
     name = request.form.get('name')
     workload = request.form.get('workload')
 
-    # Replace newlines with HTML <br> tags for proper display
+    # Replace newlines with <br> tags for correct HTML rendering
     formatted_workload = workload.replace('\n', '<br>')
 
-    # Debugging output
-    print(f"Received name: {name}")
-    print(f"Received workload: {workload}")
-
-    # Render the HTML template with the data
+    # Render the HTML template with the name and formatted workload
     return render_template('response.html', name=name, workload=formatted_workload)
+
 
 
 
@@ -130,7 +127,7 @@ def job():
 # Schedule the job at 17:30 GMT+7 every day
 def schedule_job():
     tz = pytz.timezone('Asia/Bangkok')
-    scheduler.add_job(job, 'cron', hour=13, minute=22, timezone=tz)
+    scheduler.add_job(job, 'cron', hour=13, minute=55, timezone=tz)
 
 # Start the scheduler
 scheduler.start()
