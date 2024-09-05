@@ -36,22 +36,15 @@
             border-radius: 4px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
-        .details h2 {
-            color: #007BFF;
-            margin-top: 0;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Data Received!</h1>
-        <p>Your workload information has been successfully submitted. Here's the latest entry:</p>
         <div class="details">
-            <h2>Latest Workload Submission</h2>
             <p><strong>Name:</strong> {{ name }}</p>
-            <p><strong>Workload:</strong><br>{{ workload | replace('\n', '<br>') }}</p>
+            <p><strong>Workload:</strong><br>{{ workload | safe }}</p>
         </div>
-        <p>We will notify you at 17:30 GMT+7.</p>
     </div>
 </body>
 </html>
