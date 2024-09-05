@@ -156,7 +156,7 @@ def submit():
             <div class="details">
                 <h2>Latest Workload Submission</h2>
                 <p><strong>Name:</strong> {name}</p>
-                <p><strong>Workload:</strong><br>{workload.replace('\\n', '<br>')}</p>
+                <p><strong>Workload:</strong><br>{workload.replace('\n', '<br>')}</p>
             </div>
             <p>We will notify you at 17:30 GMT+7.</p>
         </div>
