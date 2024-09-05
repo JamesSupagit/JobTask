@@ -103,11 +103,15 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    name = request.form['name']
-    workload = request.form['workload']
-    message = f"Name: *{name}*\nWorkload: {workload}"
+    # Extract name and workload from the form data
+    name = request.form.get('name')
+    workload = request.form.get('workload')
+    
+    # Ensure variables are extracted correctly
+    print(f"Received name: {name}")  # Debugging output
+    print(f"Received workload: {workload}")  # Debugging output
 
-    # Format the latest workload message with better styling
+    # Prepare the response message with f-string formatting
     return_message = f"""
     <!doctype html>
     <html lang="en">
@@ -167,13 +171,16 @@ def submit():
     </body>
     </html>
     """
-    
+
+    # Print formatted message for debugging
+    print(return_message)
+
     # Store the workload data
-    workload_data.append(message)
-    # Print workload data for debugging
-    print(message)
+    workload_data.append(f"Name: {name}\nWorkload: {workload}")
+    
     # Return the styled response
     return return_message
+
 
 
 def job():
