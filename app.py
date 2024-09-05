@@ -111,7 +111,7 @@ def submit():
     print(f"Received name: {name}")  # Debugging output
     print(f"Received workload: {workload}")  # Debugging output
 
-    # Prepare the response message with raw string formatting
+    # Prepare the response message with proper escaping
     return_message = f"""
     <!doctype html>
     <html lang="en">
@@ -180,7 +180,6 @@ def submit():
     
     # Return the styled response
     return return_message
-
 
 
 
