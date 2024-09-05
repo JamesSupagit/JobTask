@@ -8,23 +8,74 @@ app = Flask(__name__)
 # Define the LINE Notify token (replace with your own token)
 LINE_NOTIFY_TOKEN = 'ymRbTJP3GwNeaFd3K6KI37Budn8026qOuiKzTbqswL0'  # Replace with your actual token
 
-# Define the HTML template for the form
+# Define the HTML template for the form with improved styling
 form_template = '''
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workload Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .response {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter Workload Information</h1>
-    <form action="/submit" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
-        <label for="workload">Workload:</label>
-        <textarea id="workload" name="workload" rows="10" cols="50" required></textarea><br><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="container">
+        <h1>Enter Workload Information</h1>
+        <form action="/submit" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="workload">Workload:</label>
+            <textarea id="workload" name="workload" rows="10" required></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </body>
 </html>
 '''
@@ -55,14 +106,70 @@ def submit():
     name = request.form['name']
     workload = request.form['workload']
     message = f"Name: *{name}*\nWorkload: {workload}"
-    # Format the latest workload message
-    return_message = f"<h2>Latest Workload Submission</h2><p><strong>Name:</strong> {name}</p><p><strong>Workload:</strong><br>{workload.replace('\n', '<br>')}</p>"
+
+    # Format the latest workload message with better styling
+    return_message = f"""
+    <html>
+    <head>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                color: #333;
+                margin: 0;
+                padding: 0;
+            }}
+            .container {{
+                width: 80%;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }}
+            h1 {{
+                color: #007BFF;
+                text-align: center;
+            }}
+            p {{
+                font-size: 16px;
+                line-height: 1.6;
+            }}
+            .details {{
+                margin: 20px 0;
+                padding: 10px;
+                background-color: #e9ecef;
+                border-radius: 4px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            }}
+            .details h2 {{
+                color: #007BFF;
+                margin-top: 0;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Data Received!</h1>
+            <p>Your workload information has been successfully submitted. Here's the latest entry:</p>
+            <div class="details">
+                <h2>Latest Workload Submission</h2>
+                <p><strong>Name:</strong> {name}</p>
+                <p><strong>Workload:</strong><br>{workload.replace('\n', '<br>')}</p>
+            </div>
+            <p>We will notify you at 17:30 GMT+7.</p>
+        </div>
+    </body>
+    </html>
+    """
+
     # Store the workload data
     workload_data.append(message)
     # Print workload data for debugging
     print(message)
-    # Return a response with the confirmation and the latest workload message in HTML format
-    return f"<html><body><h1>Data received!</h1><p>Here's the latest workload:</p>{return_message}<p>We will notify you at 17:30 GMT+7.</p></body></html>"
+    # Return the styled response
+    return return_message
 
 def job():
     # Send a separate message for each workload entry
