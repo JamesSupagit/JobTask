@@ -173,7 +173,8 @@ def submit():
     # Print workload data for debugging
     print(message)
     # Return the styled response
-    return render_template_string(return_message)
+    return return_message
+
 
 def job():
     # Send a separate message for each workload entry
