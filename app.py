@@ -108,18 +108,22 @@ def submit():
     message = f"Name: *{name}*\nWorkload: {workload}"
 
     # Format the latest workload message with better styling
-    return_message = r"""
-    <html>
+    return_message = f"""
+    <!doctype html>
+    <html lang="en">
     <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Workload Submitted</title>
         <style>
-            body {
+            body {{
                 font-family: Arial, sans-serif;
                 background-color: #f4f4f9;
                 color: #333;
                 margin: 0;
                 padding: 0;
-            }
-            .container {
+            }}
+            .container {{
                 width: 80%;
                 max-width: 800px;
                 margin: 0 auto;
@@ -127,26 +131,26 @@ def submit():
                 background-color: #fff;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-            h1 {
+            }}
+            h1 {{
                 color: #007BFF;
                 text-align: center;
-            }
-            p {
+            }}
+            p {{
                 font-size: 16px;
                 line-height: 1.6;
-            }
-            .details {
+            }}
+            .details {{
                 margin: 20px 0;
                 padding: 10px;
                 background-color: #e9ecef;
                 border-radius: 4px;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            }
-            .details h2 {
+            }}
+            .details h2 {{
                 color: #007BFF;
                 margin-top: 0;
-            }
+            }}
         </style>
     </head>
     <body>
@@ -169,7 +173,7 @@ def submit():
     # Print workload data for debugging
     print(message)
     # Return the styled response
-    return return_message
+    return render_template_string(return_message)
 
 def job():
     # Send a separate message for each workload entry
