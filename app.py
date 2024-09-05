@@ -108,18 +108,18 @@ def submit():
     message = f"Name: *{name}*\nWorkload: {workload}"
 
     # Format the latest workload message with better styling
-    return_message = f"""
+    return_message = r"""
     <html>
     <head>
         <style>
-            body {{
+            body {
                 font-family: Arial, sans-serif;
                 background-color: #f4f4f9;
                 color: #333;
                 margin: 0;
                 padding: 0;
-            }}
-            .container {{
+            }
+            .container {
                 width: 80%;
                 max-width: 800px;
                 margin: 0 auto;
@@ -127,26 +127,26 @@ def submit():
                 background-color: #fff;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }}
-            h1 {{
+            }
+            h1 {
                 color: #007BFF;
                 text-align: center;
-            }}
-            p {{
+            }
+            p {
                 font-size: 16px;
                 line-height: 1.6;
-            }}
-            .details {{
+            }
+            .details {
                 margin: 20px 0;
                 padding: 10px;
                 background-color: #e9ecef;
                 border-radius: 4px;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            }}
-            .details h2 {{
+            }
+            .details h2 {
                 color: #007BFF;
                 margin-top: 0;
-            }}
+            }
         </style>
     </head>
     <body>
@@ -156,14 +156,14 @@ def submit():
             <div class="details">
                 <h2>Latest Workload Submission</h2>
                 <p><strong>Name:</strong> {name}</p>
-                <p><strong>Workload:</strong><br>{workload.replace('\\n', '<br>')}</p>
+                <p><strong>Workload:</strong><br>{workload.replace('\n', '<br>')}</p>
             </div>
             <p>We will notify you at 17:30 GMT+7.</p>
         </div>
     </body>
     </html>
     """
-
+    
     # Store the workload data
     workload_data.append(message)
     # Print workload data for debugging
@@ -181,7 +181,7 @@ def job():
 # Schedule the job at 17:30 GMT+7 every day
 def schedule_job():
     tz = pytz.timezone('Asia/Bangkok')
-    scheduler.add_job(job, 'cron', hour=12, minute=00, timezone=tz)
+    scheduler.add_job(job, 'cron', hour=12, minute=5, timezone=tz)
 
 # Start the scheduler
 scheduler.start()
