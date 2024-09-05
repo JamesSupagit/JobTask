@@ -111,7 +111,7 @@ def submit():
     print(f"Received name: {name}")  # Debugging output
     print(f"Received workload: {workload}")  # Debugging output
 
-    # Prepare the response message with f-string formatting
+    # Prepare the response message with raw string formatting
     return_message = f"""
     <!doctype html>
     <html lang="en">
@@ -164,14 +164,14 @@ def submit():
             <div class="details">
                 <h2>Latest Workload Submission</h2>
                 <p><strong>Name:</strong> {name}</p>
-                <p><strong>Workload:</strong><br>{workload.replace('\n', '<br>')}</p>
+                <p><strong>Workload:</strong><br>{workload.replace('\\n', '<br>')}</p>
             </div>
             <p>We will notify you at 17:30 GMT+7.</p>
         </div>
     </body>
     </html>
     """
-
+    
     # Print formatted message for debugging
     print(return_message)
 
@@ -180,6 +180,7 @@ def submit():
     
     # Return the styled response
     return return_message
+
 
 
 
